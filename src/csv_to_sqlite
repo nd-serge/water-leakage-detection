@@ -1,0 +1,19 @@
+import pandas as pd
+import sqlite3
+
+
+DATA_PATH  =  "../data/detection_fuite.csv" 
+DB_PATH= "../data/data.sqlite"
+TABLE_NAME = "leakage_data"
+
+
+df = pd.read_csv(DATA_PATH)   # ton fichier CSV
+
+conn = sqlite3.connect(DB_PATH)
+
+# --- 3. Exporter vers SQLite ---
+df.to_sql(TABLE_NAME, conn, if_exists="replace", index=False)
+
+conn.close()
+
+print("✔️ Conversion terminée ! Base mydb.sqlite créée.")
